@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import Fritz
+
+//var poseModel: FritzVisionPoseModel?
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FritzCore.configure()
+//        FritzVisionPoseModel.fetchModel { model, error in
+//            guard let downloadedModel = model, error == nil else { return }
+//
+//            poseModel = downloadedModel
+//        }
+
         return true
     }
 
