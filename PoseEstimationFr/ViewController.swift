@@ -14,6 +14,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var jointView: DrawingJointView!
     
+    @IBOutlet var fpsLabel: UILabel!
+    
     //fps
     var frames = 0
     var timer = Timer()
@@ -65,12 +67,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let bounds = view.bounds.inset(by: view.safeAreaInsets)
         print(bounds)
         
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabel), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateFPSLabel), userInfo: nil, repeats: true)
     }
     
-    @objc func updateLabel() {
-        navigationItem.title = String(frames)
+    @objc func updateFPSLabel() {
+        fpsLabel.text = "FPS: " + String(frames)
         frames = 0
+    }
+    
+    func updateExerciseLabel(from data: ResultData) {
+        navigationItem.title = String("\(data.classification) \(data.counting)")
     }
     
     func displayInputImage(_ sampleBuffer: CMSampleBuffer) {
@@ -84,10 +90,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         let fritzImage = FritzVisionImage(buffer: sampleBuffer)
-        
+        //
         let options = FritzVisionPoseModelOptions()
         options.minPoseThreshold = 0.1
         options.minPartThreshold = 0.1
+        options.nmsRadius = 50
         
         guard let result = try? poseModel.predict(fritzImage, options: options) else {
             // If there was no pose, display original image
@@ -106,6 +113,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.dataArray.append(keyPoint.position.x)
             self.dataArray.append(keyPoint.position.y)
         }
+        
         //clean points
         var cleanedDataArray = keepAnkleCleanSave(points: dataArray)
         dataArray[26] = cleanedDataArray[0]
@@ -118,8 +126,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         // make call to server
         networkHelper.internetRequest(send: dataArray, to: serverURL!, with: "POST") { (resultData) in
             // get result
-            print(resultData.classification)
-            print(resultData.counting)
+            DispatchQueue.main.async {
+                self.updateExerciseLabel(from: resultData)
+            }
+            print(resultData.classification, resultData.counting)
         }
 
         //clear array

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rkh-1K-xAY">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,14 +15,24 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PoseEstimationFr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nFS-Bu-3VR">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25j-t0-JMo">
+                                <rect key="frame" x="20" y="72" width="42" height="0.0"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="G39-rN-rax"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUH-NV-p5Z" customClass="DrawingJointView" customModule="PoseEstimationFr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="414" height="552"/>
+                                <rect key="frame" x="0.0" y="83.5" width="375" height="500"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HUH-NV-p5Z" secondAttribute="height" multiplier="3:4" id="gte-9x-gAs"/>
@@ -31,11 +41,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nFS-Bu-3VR" secondAttribute="bottom" id="J1Q-a8-uhW"/>
+                            <constraint firstAttribute="bottom" secondItem="nFS-Bu-3VR" secondAttribute="bottom" id="J1Q-a8-uhW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HUH-NV-p5Z" secondAttribute="trailing" id="N88-A0-aRi"/>
                             <constraint firstItem="nFS-Bu-3VR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NRs-Ss-u4J"/>
                             <constraint firstItem="HUH-NV-p5Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WgC-jC-6QM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nFS-Bu-3VR" secondAttribute="trailing" id="dIX-4H-GCk"/>
+                            <constraint firstItem="25j-t0-JMo" firstAttribute="top" secondItem="nFS-Bu-3VR" secondAttribute="top" constant="8" id="g7V-LQ-RI7"/>
+                            <constraint firstItem="25j-t0-JMo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="iZT-AN-SlZ"/>
                             <constraint firstItem="nFS-Bu-3VR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mEb-29-Gus"/>
                             <constraint firstItem="HUH-NV-p5Z" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="npD-Y9-zoD"/>
                         </constraints>
@@ -43,6 +55,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q5M-7f-bIM"/>
                     <connections>
+                        <outlet property="fpsLabel" destination="25j-t0-JMo" id="f4d-S8-2by"/>
                         <outlet property="jointView" destination="HUH-NV-p5Z" id="Wfa-kA-kZF"/>
                         <outlet property="previewView" destination="nFS-Bu-3VR" id="pic-n4-QfU"/>
                     </connections>
@@ -57,7 +70,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rkh-1K-xAY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YuK-X9-0ZY">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
